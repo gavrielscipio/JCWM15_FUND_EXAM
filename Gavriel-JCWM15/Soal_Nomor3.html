@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <style>
+        table, th, td, tr {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+        }
+        td {
+            text-align: center;
+        }
+    </style>
+    <body>
+        <h1> FORM USERS </h1>
+        
+        <form id="form">
+            <input type="text" placeholder="username" id="username">
+            <input type="email" placeholder="email" id="email">
+            <p>role</p>
+            <select id = "option">
+                <option value="user">user</option>
+                <option value="admin">admin</option>
+            </select> 
+            <button onclick="onbtnAdd(event)"> ADD USER </button>
+        </form>
+
+        <h1> USERS DATA </h1>
+        <table>
+            <thead>
+                <tr>
+                    <th> No. </th>
+                    <th> Username </th>
+                    <th> Email </th>
+                    <th> Role </th>
+                    <th> Action </th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+    </body>
+
+    <script>
+        let userData = []
+
+        class user {
+            constructor (id, name, email, role){
+            this.id = id,
+            this.name = name,
+            this.email = email,
+            this.role = role
+            }
+        }
+
+        let user1 = new user (1, "alee", "alee@gmail.com", "admin")
+        let user2 = new user (2, "jennie", "jenniebp@gmail.com", "user")
+        let user3 = new user (2, "elsa", "elsa@disney.com", "user")
+    
+        userData.push(user1)
+        userData.push(user2)
+        userData.push(user3)
+
+        function showUserData (ind){
+            let tbody = document.getElementById("tbody")
+
+            let tr = ""
+            for (let i = 0 ; i < userData.length ; i++){
+                if (ind === i){
+                    tr += `
+                        <tr>
+                            <td>#</td>
+                            <td>
+                                <input type = "text" id="namabaru" value="${userData[i].name}">
+                            </td>
+                            <td>
+                                <input type = "email" id="emailbaru" value="${userData[i].email}">
+                            </td>
+                            <td>
+                                <select id="select">
+                                    <option value="user">user</option>
+                                    <option value="admin">admin</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button onclick = "btnSave(${i})"> SAVE </button>
+                                <button onclick = "btnCancel()"> CANCEL </button>
+                            </td>
+                        </tr>
+                    `
+                } else {
+                tr += `
+                <tr>
+                    <td> ${i + 1} </td>
+                    <td> ${userData[i].name} </td>
+                    <td> ${userData[i].email} </td>
+                    <td> ${userData[i].role} </td>
+                    <td>
+                        <button onclick ="btnEdit(${i})">EDIT</button>
+                        <button onclick = "btnDelete(${i})">DELETE</button>
+                    </td>
+                </tr>
+                `
+                }
+            }
+            tbody.innerHTML = tr
+        }
+
+                
+                
+
+        showUserData()
+
+        function onbtnAdd (e){
+            e.preventDefault()
+            let form = document.getElementById("form")
+
+            let nama = form["username"].value
+            let email = form["email"].value
+            let option = document.getElementById("option")
+            let optionValue = option.value
+
+            if (nama === "" || email === ""){
+                alert("Input Masih Kosong")
+            }else {
+                userData.push(new user(userData.length + 1, nama, email, option.value))
+                showUserData()
+
+                form["username"].value = ""
+                form["email"].value = ""
+            }
+        }
+
+            
+        function btnEdit (index){
+            console.log("button")
+            showUserData(index)
+        }
+
+        function btnSave (index) {
+            let editNama = document.getElementById("namabaru").value
+            let editEmail = document.getElementById("emailbaru").value
+            let editOption = document.getElementById("select")
+            let editOptionValue = editOption.value
+
+            userData[index].name = editNama
+            userData[index].email = editEmail
+            userData[index].role = editOptionValue
+
+            showUserData()
+        }
+
+        function btnCancel(){
+            showUserData()
+        }
+
+
+        function btnDelete(index){
+            userData.splice(index, 1)
+            showUserData()
+        }
+
+    </script>
+</html>

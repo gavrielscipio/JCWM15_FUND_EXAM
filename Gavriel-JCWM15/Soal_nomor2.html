@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <h1> DERET FIBONANCI </h1>
+        <P> Masukan angka : </P>
+        <input type="number" placeholder="Masukan Angka" id="input">
+        
+        <button onclick="show()"> SHOW </button>
+        <button> GANJIL </button>
+        <button> GENAP </button>
+
+        <h1> RESULT : </h1>
+        <div id="result"></div>
+    </body>
+    <script>
+        let nilaiAwal = 0
+        let nilaiLanjut = 1
+        let input = document.getElementById("input")
+        let inputValue = parseInt(input.value)
+        let result = document.getElementById("result")
+        let output = `${nilaiAwal}, ${nilaiLanjut}`
+        function show(){
+          for ( let i = 2 ; i < inputValue ; i++){
+
+          }
+        }
+    </script>
+</html>
